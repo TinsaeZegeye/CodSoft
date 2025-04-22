@@ -1,0 +1,303 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-image: url(images/bg.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Header Styles */
+.header {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-items {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-items a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-items a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #4caf50;
+}
+
+.contact {
+  background-color: #4caf50;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 600;
+}
+
+.contact a {
+  color: white;
+  text-decoration: none;
+}
+
+.contact:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Main Content Grid Layout */
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Grid Styles */
+.profession,
+.about-me,
+.projects,
+.skills,
+.resume {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.profession:hover,
+.about-me:hover,
+.projects:hover,
+.skills:hover,
+.resume:hover {
+  transform: translateY(-5px);
+}
+
+.profession h1 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.profession span {
+  color: #4caf50;
+}
+
+.profession img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid #4caf50;
+}
+
+/* About Me Section */
+.about-me {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.about-me h2 {
+  margin-top: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.about-me p {
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Projects Grid */
+.projects .photo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.projects .photo img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.projects .photo img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.projects figcaption {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.projects figcaption a {
+  color: #4caf50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.projects figcaption a:hover {
+  color: #45a049;
+}
+
+/* Skills Section */
+.skills h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.skills p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Footer Styles */
+footer {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.social-links ul,
+.page-links ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  justify-content: center;
+}
+
+.social-links a {
+  font-size: 1.5rem;
+  color: #ffffff;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #4caf50;
+  transform: scale(1.1);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-items {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav-items.active {
+    display: flex;
+  }
+
+  .about-me {
+    grid-template-columns: 1fr;
+  }
+
+  .projects .photo-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .profession,
+  .about-me,
+  .projects,
+  .skills,
+  .resume {
+    padding: 1.5rem;
+  }
+
+  .profession h1 {
+    font-size: 2rem;
+  }
+
+  .projects .photo img {
+    height: 150px;
+  }
+}

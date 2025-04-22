@@ -31,3 +31,27 @@ function calculate() {
     justCalculated = true;
   }
 }
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+
+  if (/^[0-9]$/.test(key) || key === ".") {
+    appendValue(key);
+  }
+  else if (/[+\-*/]/.test(key)) {
+    appendValue(key);
+  }
+
+  else if (key === "Enter") {
+    event.preventDefault();
+    calculate();
+  }
+
+  else if (key === "Backspace") {
+    deleteLast();
+  }
+
+  else if (key === "Escape") {
+    clearDisplay();
+  }
+
+});
