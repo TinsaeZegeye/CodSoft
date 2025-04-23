@@ -1,74 +1,165 @@
-// JavaScript to enhance functionality
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Mobile Navigation Toggle
+  // Hamburger Menu Functionality
+  const menuToggle = document.getElementById("menu-toggle");
   const navItems = document.querySelector(".nav-items");
-  const toggleNavButton = document.createElement("button");
-  toggleNavButton.innerHTML = '<i class="fa-solid fa-bars"></i>';
-  toggleNavButton.classList.add("mobile-nav-toggle");
-  document.querySelector(".nav-bar").appendChild(toggleNavButton);
+  const hamburger = document.querySelector(".hamburger");
+  const contactBtn = document.querySelector(".contact");
 
-  toggleNavButton.addEventListener("click", () => {
-    navItems.classList.toggle("active");
-    toggleNavButton.innerHTML = navItems.classList.contains("active")
-      ? '<i class="fa-solid fa-times"></i>'
-      : '<i class="fa-solid fa-bars"></i>';
-  });
+  // Modal Elements
+  const modalOverlay = document.querySelector(".contact-modal-overlay");
+  const closeBtn = document.querySelector(".close-modal");
 
-  // Smooth Scrolling for Internal Links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href").substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 50,
-          behavior: "smooth",
-        });
+  // Toggle Mobile Menu
+  if (hamburger) {
+    hamburger.addEventListener("click", () => {
+      navItems.classList.toggle("active");
+    });
+  }
+
+  // Close Mobile Menu on Item Click
+  document.querySelectorAll(".nav-items a").forEach(item => {
+    item.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        menuToggle.checked = false;
+        navItems.classList.remove("active");
       }
     });
   });
 
-  // Toggle Hidden Content in Sections
-  document.querySelectorAll(".toggle-link").forEach((link) => {
-    link.addEventListener("click", (e) => {
+  // Contact Modal Functionality
+  if (contactBtn) {
+    contactBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      const hiddenContent = link.nextElementSibling;
-      if (hiddenContent) {
-        hiddenContent.classList.toggle("active");
-        link.textContent = hiddenContent.classList.contains("active")
-          ? "Read Less"
-          : "Read More";
+      // Show Modal
+      modalOverlay.style.display = "flex";
+      
+      // Close Mobile Menu if Open
+      if (window.innerWidth <= 768) {
+        menuToggle.checked = false;
+        navItems.classList.remove("active");
       }
     });
-  });
+  }
 
-  // Add Active Class to Current Page Link
-  const currentPage = window.location.pathname.split("/").pop();
-  document.querySelectorAll(".nav-items a").forEach((link) => {
-    if (link.getAttribute("href") === currentPage) {
-      link.classList.add("active");
+  // Close Modal Functionality
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      modalOverlay.style.display = "none";
+    });
+  }
+
+  // Close Modal on Outside Click
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+      modalOverlay.style.display = "none";
     }
   });
 
-  // Lazy Load Images
-  const images = document.querySelectorAll("img[data-src]");
-  const lazyLoad = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.onload = () => img.classList.add("loaded");
-        observer.unobserve(img);
+  // Fix Select Dropdown Styling
+  const industrySelect = document.getElementById("industry");
+  if (industrySelect) {
+    industrySelect.style.color = "#ffffff";
+    
+    industrySelect.addEventListener("focus", () => {
+      industrySelect.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+    });
+    
+    industrySelect.addEventListener("blur", () => {
+      industrySelect.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+    });
+  }
+
+  // Smooth Scroll for Navigation Links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", (e) => {
+      const targetId = anchor.getAttribute("href").substring(1);
+      const targetEl = document.getElementById(targetId);
+      
+      if (targetEl && targetId !== "contact") {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
-  };
-
-  const imageObserver = new IntersectionObserver(lazyLoad, {
-    rootMargin: "50px 0px",
-    threshold: 0.01,
   });
 
-  images.forEach((img) => imageObserver.observe(img));
+  // Form Validation
+  const contactForm = document.querySelector(".contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        industry: document.getElementById("industry").value.trim(),
+        message: document.getElementById("message").value.trim()
+      };
+
+      // Clear Previous Errors
+      document.querySelectorAll(".error").forEach(error => error.remove());
+
+      // Validate Fields
+      let isValid = true;
+      if (!formData.name) {
+        showError("name", "Please enter your name");
+        isValid = false;
+      }
+      if (!formData.email) {
+        showError("email", "Please enter your email");
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        showError("email", "Please enter a valid email address");
+        isValid = false;
+      }
+      if (!formData.industry) {
+        showError("industry", "Please select an industry");
+        isValid = false;
+      }
+      if (!formData.message) {
+        showError("message", "Please enter a message");
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert("Thank you! Your message has been sent.");
+        contactForm.reset();
+        modalOverlay.style.display = "none";
+      }
+    });
+  }
+
+  // Error Display Function
+  function showError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const error = document.createElement("div");
+    error.className = "error";
+    error.style.color = "#ff4444";
+    error.style.fontSize = "0.9rem";
+    error.style.marginTop = "5px";
+    error.textContent = message;
+    field.parentNode.insertBefore(error, field.nextSibling);
+  }
+
+  // Skill Bars Animation
+  const revealObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          if (entry.target.id === "skills") {
+            document.querySelectorAll(".skill-fill").forEach(bar => {
+              bar.style.width = bar.getAttribute("data-level");
+            });
+          }
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  // Observe Sections
+  document.querySelectorAll("main section").forEach(sec => {
+    sec.classList.add("hidden");
+    revealObserver.observe(sec);
+  });
 });
